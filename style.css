@@ -1,0 +1,42 @@
+.top{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.contentbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content{
+    display: flex;
+    gap: 100px;
+    margin-top: 15px;
+}
+
+.content p{
+    width: 150px;
+}
+
+.textarea{
+    width: 500px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.detail{
+    width: 500px;
+    height: 300px;
+    font-size: 20px;
+}
+
+.send{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}

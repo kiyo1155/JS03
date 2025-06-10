@@ -3,9 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>問い合わせページ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="top">
+        <h1>お問い合わせページ</h1>
+        <p>サービスについてのお問い合わせはこちらより承ります。<br>
+        2～3営業日内にご回答させていただきます。
+        </p>
+    </div>
+    
+    <div class="contentbox">
+        <div class="content">
+            <p>お名前</p>
+            <input type="text" class="textarea" id="name">
+        </div>
+        <div class="content">
+            <p>メールアドレス</p>
+            <input type="text" class="textarea" id="mail">
+        </div>
+        <div class="content">
+            <p>電話番号</p>
+            <input type="text" class="textarea" id="tel">
+        </div>
+    <div class="content">
+            <p>詳細内容</p>
+            <textarea name="detail" rows="5" cols="50" class="detail" id="detail"></textarea>
+    </div>
+   </div>
+   
+   <div class="send">
+    <button id="send">送信</button>
+   </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        serverTimestamp,
+    } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+
+    // Firebaseの設定
+    const firebaseConfig = {
+        apiKey: "AIzaSyBGWmdH9z4U8VB9l--qfG1BykX0BlQ_y4M",
+        authDomain: "contactcheck-ede24.firebaseapp.com",
+        projectId: "contactcheck-ede24",
+        storageBucket: "contactcheck-ede24.appspot.com", // ← storageBucket 修正（誤記ありました）
+        messagingSenderId: "269797209305",
+        appId: "1:269797209305:web:b0ee5a9399b2cb2a19fac8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // DOM読み込み後にクリックイベントを登録
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("send").addEventListener("click", async () => {
+            // 入力値取得
+            const name = document.getElementById("name").value.trim();
+            const mail = document.getElementById("mail").value.trim();
+            const tel = document.getElementById("tel").value.trim();
+            const detail = document.getElementById("detail").value.trim();
+
+            // バリデーションチェック
+            if (!name || !mail || !tel || !detail) {
+                alert("未記入の欄があります。");
+                return;
+            }
+
+            const postData = {
+                name,
+                mail,
+                tel,
+                detail,
+                time: serverTimestamp(),
+            };
+
+            try {
+                // 保存完了まで待つ
+                await addDoc(collection(db, "contact"), postData);
+                // 成功後に遷移
+                window.location.href = "thanks.html";
+            } catch (error) {
+                alert("送信中にエラーが発生しました。");
+                console.error("Firestore error:", error);
+            }
+        });
+    });
+</script>
     
 </body>
 </html>
