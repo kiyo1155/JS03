@@ -66,14 +66,7 @@
     } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
     // Firebaseの設定
-    const firebaseConfig = {
-        apiKey: "AIzaSyBGWmdH9z4U8VB9l--qfG1BykX0BlQ_y4M",
-        authDomain: "contactcheck-ede24.firebaseapp.com",
-        projectId: "contactcheck-ede24",
-        storageBucket: "contactcheck-ede24.appspot.com", // ← storageBucket 修正（誤記ありました）
-        messagingSenderId: "269797209305",
-        appId: "1:269797209305:web:b0ee5a9399b2cb2a19fac8"
-    };
+  
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
